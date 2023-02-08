@@ -18,7 +18,7 @@ parameters:
     default: dev
   SWAGGER_GEN:
     type: boolean
-    default: false
+    default: true
     description: "Generate new swagger?"
 
 # Define a job to be invoked later in a workflow.
@@ -39,6 +39,25 @@ jobs:
             ls -la 
             pwd
             echo $ENV
+            
+  test_condition:
+    executor: python/default
+    environment:
+      - ENV: << pipeline.parameters.ENV >>
+    #!you can also Set an environment variable in a project by using this https://circleci.com/docs/set-environment-variable/#set-an-environment-variable-in-a-project
+      - AWS_CREDENTIALS_ID: "xxx"
+      - AUTHORIZER_NAME: "xxxx"
+      - REST_API_ID: "xxx"
+    steps:
+      - checkout
+      - when:
+          condition:
+            equal: [<< pipeline.parameters.SWAGGER_GEN >> ]           
+          steps:
+            - run: 
+                command: |
+                  echo << pipeline.parameters.SWAGGER_GEN >>
+  
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -46,3 +65,4 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - git_checkout
+      - test_condition
