@@ -39,7 +39,18 @@ jobs:
             ls -la 
             pwd
             echo $ENV
-            
+
+  ext_git_checkout:
+    executor: python/default
+    environment:
+      - ENV: << pipeline.parameters.ENV >>
+    steps:
+      - run:
+        command: |
+            git clone git+ssh://git@github.com:dinhdobathi1992/test-status.git
+            cd test-status
+            ls -la
+
   test_condition:
     executor: python/default
     environment:
@@ -66,3 +77,4 @@ workflows:
     jobs:
       - git_checkout
       - test_condition
+      - ext_git_checkout
