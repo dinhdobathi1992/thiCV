@@ -52,7 +52,7 @@ jobs:
       - run:
           command: |
             cat ~/.ssh/known_hosts
-            #git clone git@github.com:dinhdobathi1992/test-status.git
+            git clone git@github.com:dinhdobathi1992/test-status.git
             cd test-status
             ls -la
 
