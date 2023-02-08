@@ -46,8 +46,8 @@ jobs:
       - ENV: << pipeline.parameters.ENV >>
     steps:
       - run:
-        command: |
-            git clone git+ssh://git@github.com:dinhdobathi1992/test-status.git
+          command: |
+            git clone git@github.com:dinhdobathi1992/test-status.git
             cd test-status
             ls -la
 
