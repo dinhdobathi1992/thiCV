@@ -1,4 +1,4 @@
-projects: ['PROJ', 'ABC']
+projects: ['APF', 'ABC']
 check_title: true
 check_branch: true
 check_commits: true
